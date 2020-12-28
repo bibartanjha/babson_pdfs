@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block head %}
+<title>Create Job</title>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+<br><br>
+
+{% if job_created %}
+<fieldset>
+	{% if job_successful %}
+		<h4 style="width: 600px">Job Created!</h4>
+		<h6 style="width: 600px">Job Name: {{job_info['Job Name']}} </h6>
+		<h6 style="width: 600px">Job Description: {{job_info['Job Description']}} </h6>
+		<h6 style="width: 600px">Email Subject: {{job_info['Email Subject']}} </h6>
+		<h6 style="width: 600px">Email Body: {{job_info['Email Body']}} </h6>
+		<br><br><br>
+		<h6 style="width: 600px"><u>Recipients</u></h6>
+		{% for recipient in job_info['Recipients'] %}
+			<h6 style="width: 600px">{{recipient}}</h6>
+		{% endfor %}
+	{% else %}
+		<h4 style="width: 600px">Error</h4><br><br>
+		<h6 style="width: 600px">No valid emails given </h6>
+	{% endif %}
+<br><br>
+<form action="/Create_Job" method="GET">
+	<input type="submit" value="Create New Job" class="btn btn-secondary ml-3">
+</form>
+</fieldset>
+{% else %}
+<form action="/Create_Job" method="POST">
+	<fieldset>
+	    <legend>New Job</legend>
+	    <p>
+	    <label for="jobName" class = 'required'>Job Name</label><br>
+	    <textarea name = "jobName" rows = "1" cols = "75" required></textarea>
+	    </p>
+	    <p>
+	    <label for="jobDescription">Job Description</label><br>
+	    <textarea name = "jobDescription" rows = "1" cols = "75"></textarea>
+	    </p>
+	    <hr class="solid">
+	    <p>
+	    <label for="emailSubject">Email Subject</label><br>
+	    <textarea name = "emailSubject" rows = "1" cols = "75"></textarea>
+	    </p>
+	    <p>
+	    <label for="emailBody">Email Body</label><br>
+	    <textarea name = "emailBody" rows = "3" cols = "75"></textarea>
+	    </p>
+		<p>
+	    <label for="recipients" class = 'required'>Recipient Emails</label><br>
+	    <textarea name = "recipients" rows = "10" cols = "75" placeholder="Put space between each email address" required></textarea>
+	    </p>
+	    <hr class="solid">
+	    <p><input type="submit" value="Create Job" class="btn btn-secondary ml-3">
+	    </p>
+	</fieldset>
+</form>
+{% endif %}
+{% endblock %}

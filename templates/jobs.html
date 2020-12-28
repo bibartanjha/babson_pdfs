@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block head %}
+<title>Jobs</title>
+{% endblock %}
+{% block body %}
+<br>
+<h2 style = "float: center; width: 100%;">Jobs</h2>
+<br><br><br><br>
+{% for job in all_jobs %}
+<fieldset>
+	<legend>{{job['Job Name']}}</legend>
+	<h6 style="width: 600px">Description: {{job['Job Description']}} </h6>
+	<br><br>
+	<h6 style="width: 600px">Email Subject: {{job['Email Subject']}} </h6>
+	<h6 style="width: 600px">Email Body: {{job['Email Body']}} </h6>
+	<br><br><br>
+	<h6 style="width: 600px"><u>Recipients</u></h6>
+	{% for recipient in job['Recipients'] %}
+			<h6 style="width: 600px">{{recipient}}</h6>
+	{% endfor %}
+</fieldset>
+<br><br>
+{% endfor %}
+{% endblock %}
