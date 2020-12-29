@@ -8,6 +8,12 @@ from email import encoders
 import re 
 import pymongo
 from pymongo import MongoClient
+import io
+import restfulengine
+from restfulengine import AdoDataSource
+from restfulengine import XmlDataSource
+from restfulengine import TemplateVariable
+from restfulengine import OutputFormat
 
 mail_content = 'Test mail'
 
@@ -31,8 +37,8 @@ def CreateDocument():
 def Documents():
 	return render_template('documents.html')
 
-@app.route('/Create_Job', methods=['GET', 'POST'])
-def CreateJob():
+@app.route('/Email_PDFs', methods=['GET', 'POST'])
+def Email_PDFs():
 	if request.method == 'POST':
 		db = client['Jobs']
 		collection = db['Jobs']
@@ -49,8 +55,8 @@ def CreateJob():
 		job_info['Recipients'] = true_emails
 
 		record_submitted = collection.insert_one(job_info)
-		return render_template('create_job.html', job_created = True, job_successful = True, job_info = job_info)
-	return render_template('create_job.html', job_created = False)
+		return render_template('email_PDFs.html', job_created = True, job_successful = True, job_info = job_info)
+	return render_template('email_PDFs.html', job_created = False)
 
 @app.route('/Jobs', methods=['GET', 'POST'])
 def Jobs():
